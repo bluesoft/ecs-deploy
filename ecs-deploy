@@ -397,6 +397,7 @@ function updateService() {
                 | jq -r '.taskArns[]')
 
             if [[ ! -z $RUNNING_TASKS ]] ; then
+                sleep 5
                 RUNNING=$($AWS_ECS describe-tasks --cluster "$CLUSTER" --tasks $RUNNING_TASKS \
                     | jq ".tasks[]| if .taskDefinitionArn == \"$NEW_TASKDEF\" then . else empty end|.lastStatus" \
                     | grep -e "RUNNING") || :
@@ -405,6 +406,7 @@ function updateService() {
                     echo "Service updated successfully, new task definition running.";
 
                     if [[ $MAX_DEFINITIONS -gt 0 ]]; then
+                        sleep 5
                         FAMILY_PREFIX=${TASK_DEFINITION_ARN##*:task-definition/}
                         FAMILY_PREFIX=${FAMILY_PREFIX%*:[0-9]*}
                         TASK_REVISIONS=`$AWS_ECS list-task-definitions --family-prefix $FAMILY_PREFIX --status ACTIVE --sort ASC`
