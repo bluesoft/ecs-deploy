@@ -447,7 +447,7 @@ function updateService() {
 
 function waitForGreenDeployment {
   DEPLOYMENT_SUCCESS="false"
-  every=5
+  every=15
   i=0
   echo "Waiting for service deployment to complete..."
   while [ $i -lt $TIMEOUT ]
