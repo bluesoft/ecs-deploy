@@ -21,6 +21,8 @@ AWS_ECS="$AWS_CLI --output json ecs"
 FORCE_NEW_DEPLOYMENT=false
 SKIP_DEPLOYMENTS_CHECK=false
 RUN_TASK=false
+AWS_MAX_ATTEMPTS=10
+AWS_RETRY_MODE=standard
 
 function usage() {
     cat <<EOM
